@@ -54,3 +54,46 @@ Props로 전달 받은 데이터 {key: 1, name: “나이”}
 </html>
 
 <!--useState-->
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <script
+      src="https://unpkg.com/react@18/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <div id="root"></div>
+    <script type="text/babel">
+      const rootElement = document.getElementById("root");
+
+      const state = { name: "button", color: "pink" };
+
+      function Button() {
+        // console.log("props:", props);
+        const [color, setColor] = React.useState("green");
+        const [name, setName] = React.useState("button");
+        return (
+          <button style={{ backgroundColor: color }}>
+            {color}
+            {name}
+          </button>
+        );
+      }
+
+      const Buttons = () => (
+        <>
+          <button style={{ backgroundColor: state.color }}>
+            {state.color + state.name}
+          </button>
+          <Button />
+        </>
+      );
+
+      ReactDOM.render(Buttons(), rootElement);
+    </script>
+  </body>
+</html>
