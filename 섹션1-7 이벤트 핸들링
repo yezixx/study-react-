@@ -1,1 +1,127 @@
+<!-- onclick과 addEventListener를 통한 이벤트 핸들링-->
+<!DOCTYPE html>
+<html>
+<body>
+<button id="button" onclick="document.getElementById('desc').innerHTML=Date()">What is time?</button>
+<p id='desc'></p>
+<script>
+	const button=document.getElementById("button");
+    button.addEventListener("mouseout", ()=>document.getElementById('desc').innerHTML="");
+</script>
+</body>
+</html>
 
+<!--1-->
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <script
+      src="https://unpkg.com/react@18/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <div id="root"></div>
+    <script type="text/babel">
+      const rootElement = document.getElementById("root");
+
+      function Buttons() {
+        // h1 태그의 글자색을 바꿔주는 변수값
+        const [textColor, setTextColor] = React.useState("black");
+
+        //버튼을 클릭했을 때 실행되는 함수
+        const handleClickButton = (color) => {
+          console.log("color", color);
+          setTextColor(color);
+        };
+        return (
+          <>
+            <button
+              onClick={() => handleClickButton("pink")}
+              style={{ backgroundColor: "pink" }}
+            >
+              pinkbutton
+            </button>
+            <button
+              onClick={() => handleClickButton("blue")}
+              style={{ backgroundColor: "blue" }}
+            >
+              bluebutton
+            </button>
+            <button
+              onClick={() => handleClickButton("green")}
+              style={{ backgroundColor: "green" }}
+            >
+              greenbutton
+            </button>
+            <h1 style={{ color: textColor }}>color</h1>
+          </>
+        );
+      }
+
+      const element = <Buttons />;
+
+      ReactDOM.render(element, rootElement);
+    </script>
+  </body>
+</html>
+
+<!--버튼 컴포넌트로 빼서 작성-->
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <script
+      src="https://unpkg.com/react@18/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <div id="root"></div>
+    <script type="text/babel">
+      const rootElement = document.getElementById("root");
+
+      // 공통되는 버튼의 재사용을 위한 버튼 컴포넌트
+      const Button = ({ color, onClickButton }) => {
+        //버튼을 클릭했을 때 실행되는 함수
+        const handleClickButton = (color) => {
+          //상위컴포넌트의 setTextColot 실행
+          onClickButton(color);
+        };
+
+        return (
+          <button
+            onClick={() => handleClickButton(color)}
+            style={{ backgroundColor: color }}
+          >
+            {color}button
+          </button>
+        );
+      };
+
+      function Buttons() {
+        // h1 태그의 글자색을 바꿔주는 변수값
+        const [textColor, setTextColor] = React.useState("black");
+        console.log("textColor", textColor);
+
+        return (
+          <>
+            <Button color="pink" onClickButton={setTextColor} />
+            <Button color="blue" onClickButton={setTextColor} />
+            <Button color="green" onClickButton={setTextColor} />
+            <h1 style={{ color: textColor }}>color</h1>
+          </>
+        );
+      }
+
+      const element = <Buttons />;
+
+      ReactDOM.render(element, rootElement);
+    </script>
+  </body>
+</html>
