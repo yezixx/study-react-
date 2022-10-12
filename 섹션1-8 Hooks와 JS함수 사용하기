@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <script
+      src="https://unpkg.com/react@18/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <div id="root"></div>
+    <script type="text/babel">
+      const rootElement = document.getElementById("root");
+
+      // 공통되는 버튼의 재사용을 위한 버튼 컴포넌트
+      const Button = ({
+        color,
+        changeTextColor,
+        array,
+        addCount,
+        count,
+        addNewArray
+      }) => {
+        //버튼을 클릭했을 때 실행되는 함수
+        const handleClickButton = (color) => {
+          addCount(count + 1);
+          console.log("array", array);
+          //상위컴포넌트의 setTextColot 실행
+          changeTextColor(color);
+          // 버튼을 클릭했을 때 array 배열에 텍스트 추가
+          const newArray = array.concat({
+            key: count,
+            desc: `Click ${color}button`
+          });
+          addNewArray(newArray);
+        };
+
+        console.log("array", array);
+
+        return (
+          <button
+            onClick={() => handleClickButton(color)}
+            style={{ backgroundColor: color }}
+          >
+            {color}button
+          </button>
+        );
+      };
+
+      function Buttons() {
+        // h1 태그의 글자색을 바꿔주는 변수값
+        const [textColor, setTextColor] = React.useState("black");
+        const [newState, setNewState] = React.useState([
+          { key: 0, color: "pink" },
+          { key: 1, color: "blue" },
+          { key: 2, color: "green" }
+        ]);
+        const [array, setArray] = React.useState([]);
+        const [count, setCount] = React.useState(0);
+
+        return (
+          <>
+            {newState.map((button) => {
+              return (
+                <Button
+                  key={button.key}
+                  color={button.color}
+                  changeTextColor={setTextColor}
+                  addNewArray={setArray}
+                  array={array}
+                  addCount={setCount}
+                  count={count}
+                />
+              );
+            })}
+            <h1 style={{ color: textColor }}>color</h1>
+            {array.map((text, index) => {
+              return <p key={index}>{text.desc}</p>;
+            })}
+          </>
+        );
+      }
+
+      const element = <Buttons />;
+
+      ReactDOM.render(element, rootElement);
+    </script>
+  </body>
+</html>
+
+<!--useEffect-->
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <script
+      src="https://unpkg.com/react@18/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <div id="root"></div>
+    <script type="text/babel">
+      const rootElement = document.getElementById("root");
+
+      // 공통되는 버튼의 재사용을 위한 버튼 컴포넌트
+      const Button = ({
+        color,
+        changeTextColor,
+        array,
+        addCount,
+        count,
+        addNewArray
+      }) => {
+        //버튼을 클릭했을 때 실행되는 함수
+        const handleClickButton = (color) => {
+          addCount(count + 1);
+          //상위컴포넌트의 setTextColot 실행
+          changeTextColor(color);
+          // 버튼을 클릭했을 때 array 배열에 텍스트 추가
+          const newArray = array.concat({
+            key: count,
+            desc: `Click ${color}button`
+          });
+          addNewArray(newArray);
+        };
+
+        console.log("count", count);
+
+        React.useEffect(() => {
+          console.log("Count id added");
+        }, [count]);
+
+        return (
+          <button
+            onClick={() => handleClickButton(color)}
+            style={{ backgroundColor: color }}
+          >
+            {color}button
+          </button>
+        );
+      };
+
+      function Buttons() {
+        // h1 태그의 글자색을 바꿔주는 변수값
+        const [textColor, setTextColor] = React.useState("black");
+        const [newState, setNewState] = React.useState([
+          { key: 0, color: "pink" },
+          { key: 1, color: "blue" },
+          { key: 2, color: "green" }
+        ]);
+        const [array, setArray] = React.useState([]);
+        const [count, setCount] = React.useState(0);
+
+        return (
+          <>
+            {newState.map((button) => {
+              return (
+                <Button
+                  key={button.key}
+                  color={button.color}
+                  changeTextColor={setTextColor}
+                  addNewArray={setArray}
+                  array={array}
+                  addCount={setCount}
+                  count={count}
+                />
+              );
+            })}
+            <h1 style={{ color: textColor }}>color</h1>
+            {array.map((text, index) => {
+              return <p key={index}>{text.desc}</p>;
+            })}
+          </>
+        );
+      }
+
+      const element = <Buttons />;
+
+      ReactDOM.render(element, rootElement);
+    </script>
+  </body>
+</html>
