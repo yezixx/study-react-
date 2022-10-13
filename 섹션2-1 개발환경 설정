@@ -1,0 +1,5 @@
+<Github이란?>
+- Respository: 파일이나 폴더 저장
+- Commit: 로컬저장소에서 변경된 내용 저장
+- Push: 로컬저장소에 commit한 내용을 원격저장소에 올림
+- Pull: 자신의 로컬저장소로 다운
